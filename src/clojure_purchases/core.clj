@@ -5,7 +5,10 @@
   
 
 (defn -main []
+  (println "Please type a category")
+  (println "i.e. Alcohol, Furniture, Food, Shoes, Toiletries")
   (let [purchase (slurp "purchases.csv")
+        text (read-line)
         purchase (str/split-lines purchase)
         purchase (map (fn [line]
                        (str/split line #","))
@@ -17,7 +20,10 @@
                    purchase)
         purchase (walk/keywordize-keys purchase)
         purchase (filter (fn [line]
-                           (=(:category line) "Furniture"))
-                   purchase)]
+                           (=(:category line) text))
+                         purchase)]
     (spit "filtered_purchase.edn" (pr-str purchase))
     purchase))
+    
+
+   
